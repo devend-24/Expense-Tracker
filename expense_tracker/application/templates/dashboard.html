@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-10 col-sm-6 col-md-6">
+        <div class="card card-style mb-2">
+            <div class="card-body">
+                <div class="chart-container" style="position: relative;">
+                    <canvas id="income_vs_expense"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-10 col-sm-6 col-md-6">
+        <div class="card card-style mb-2">
+            <div class="card-body">
+                <div class="chart-container" style="position: relative;">
+                    <canvas id="expenses_over_time"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block javascript %}
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Loading data passed from the Flask backend as JSON
+    let income_expenses = JSON.parse('{{ income_vs_expenses | safe }}');
+    let labels = JSON.parse('{{ dates_label | safe }}');
+    let amounts = JSON.parse('{{ over_time_expenditure | safe }}');
+
+    // Income vs Expenses Pie Chart
+    let income_vs_expense_chart = new Chart(document.getElementById('income_vs_expense'), {
+        type: 'pie',
+        data: {
+            labels: ['Expense', 'Income'],
+            datasets: [{
+                label: "Income Vs Expenses",
+                data: income_expenses,
+                backgroundColor: ['#5DA5DA', '#FAA43A'],
+                borderWidth: 1,
+                hoverBorderColor: "black",
+                hoverBorderWidth: 2,
+                hoverBackgroundColor: ['#5DA5DA', '#FAA43A'],
+                pointHoverRadius: 5
+            }],
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Income Vs Expenses",
+                fontSize: 20,
+            },
+            legend: {
+                position: "left",
+                labels: {
+                    fontColor: "gray"
+                },
+                display: true,
+            },
+            elements: {
+                hitRadius: 3,
+            }
+        }
+    });
+
+    // Expenditure Over Time Line Chart
+    new Chart(document.getElementById("expenses_over_time"), {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Expenditure Over Time",
+                data: amounts,
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                lineTension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Expenditure Over Time'
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Time'
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Expenditure'
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
+{% endblock %}

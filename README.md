@@ -71,16 +71,18 @@ To run this project locally, follow these steps:
 Here’s a quick look at the app's key features:
 
 ### 1. **Login Page** 🔑
-![Login Page](screenshots/login.png)
+![Login Page](site_screenshots
+/Home_page.png)
 
 ### 2. **Add Expense** 📝
-![Add Expense](screenshots/add_expense.png)
+![Add Expense](site_screenshots
+/Add_Transactions.png)
 
 ### 3. **Reports (Pie Chart)** 📊
-![Pie Chart](screenshots/reports_pie_chart.png)
+![Pie Chart](site_screenshots/Dashboard.png)
 
 ### 4. **Transaction History** 📃
-![Transaction History](screenshots/transaction_history.png)
+![Transaction History](site_screenshots/Transaction_History.png)
 
 ## 📈 **How it Works**
 
